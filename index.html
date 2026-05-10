@@ -248,37 +248,46 @@ footer a:hover{color:var(--gray-800);}
 
 /* ===== TEAM PAGE ===== */
 .team-hero{padding:100px 40px 72px;text-align:center;background:var(--white);}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto;padding:0 40px 80px;}
-.tc{background:var(--white);border:1.5px solid var(--gray-100);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.25s cubic-bezier(.34,1.56,.64,1),box-shadow 0.25s ease,border-color 0.2s;position:relative;}
-.tc:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.10);border-color:var(--gray-200);}
-.tc-top{padding:32px 24px 20px;text-align:center;position:relative;}
+/* cards */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.tc{background:var(--white);border:1.5px solid var(--gray-100);border-radius:20px;overflow:hidden;}
+.tc-top{padding:32px 24px 20px;text-align:center;}
 .tc-avatar{width:88px;height:88px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;letter-spacing:-0.02em;color:white;position:relative;}
 .tc-star{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--white);}
 .tc-star svg{width:12px;height:12px;fill:white;stroke:none;}
 .tc-name{font-size:17px;font-weight:600;color:var(--black);margin-bottom:3px;}
 .tc-role{font-size:13px;color:var(--gray-400);margin-bottom:4px;}
 .tc-exp{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:0.04em;}
-.tc-badges{padding:0 20px 16px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+.tc-badges{padding:0 20px 14px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
 .bb{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.04em;text-transform:uppercase;}
 .tc-divider{height:1px;background:var(--gray-100);margin:0 20px;}
-.tc-projects{padding:14px 20px;display:flex;flex-wrap:wrap;gap:5px;}
+.tc-superpower{padding:14px 20px 0;font-size:13px;color:var(--gray-600);line-height:1.55;font-style:italic;}
+.tc-projects{padding:10px 20px 18px;display:flex;flex-wrap:wrap;gap:5px;}
 .proj-tag{font-size:11px;color:var(--gray-400);background:var(--gray-50);border-radius:6px;padding:3px 8px;font-weight:500;}
-/* HOVER OVERLAY */
-.tc-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);border-radius:20px;opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:center;padding:28px;pointer-events:none;}
-.tc:hover .tc-overlay{opacity:1;pointer-events:auto;}
-.tc-overlay-quote{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;font-style:italic;margin-bottom:16px;}
-.tc-overlay-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;}
-.tc-overlay-mods{display:flex;flex-wrap:wrap;gap:5px;}
-.tc-overlay-mod{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(0,113,227,0.25);color:rgba(0,113,227,0.9);border:1px solid rgba(0,113,227,0.3);}
-/* LEGEND */
+/* reviews */
+.reviews-section{background:var(--black);padding:80px 40px;}
+.reviews-inner{max-width:980px;margin:0 auto;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.rv{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;}
+.rv-stars{display:flex;gap:3px;margin-bottom:16px;}
+.rv-star{width:14px;height:14px;fill:#f5a623;}
+.rv-quote{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.65;flex:1;font-style:italic;margin-bottom:20px;}
+.rv-footer{display:flex;align-items:center;gap:12px;}
+.rv-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;}
+.rv-name{font-size:13px;font-weight:600;color:rgba(255,255,255,0.8);}
+.rv-meta{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;}
+/* legend */
 .legend-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}
-/* FEATURED LEADER */
-.leader-section{background:var(--black);padding:60px 40px;}
-.leader-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:60px;align-items:center;}
+/* leader */
+.leader-section{background:var(--black);padding:60px 40px 0;}
+.leader-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:60px;align-items:center;padding-bottom:60px;}
 .leader-avatar{width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#0d2a4a,#0071e3);display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:-0.02em;box-shadow:0 0 0 1px rgba(0,113,227,0.25),0 32px 80px rgba(0,113,227,0.2);position:relative;}
 .leader-badge-ring{position:absolute;bottom:8px;right:8px;width:52px;height:52px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--black);}
-@media(max-width:768px){.team-grid{grid-template-columns:1fr 1fr;}.leader-inner{grid-template-columns:1fr;}.tc-overlay{display:none;}}
-
+@media(max-width:768px){
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .reviews-grid{grid-template-columns:1fr;}
+  .leader-inner{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -569,15 +578,14 @@ footer a:hover{color:var(--gray-800);}
 <section class="team-hero">
   <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">The people behind the practice</div>
   <h1 style="font-size:64px;font-weight:600;letter-spacing:-0.003em;color:var(--black);margin-bottom:20px;line-height:1.05;">Our consulting <span style="color:var(--blue);">heroes.</span></h1>
-  <p style="font-size:19px;color:var(--gray-600);max-width:520px;margin:0 auto;line-height:1.5;">Certified. Battle-tested. Each a black belt in their SF domain. Hover any card to see their superpower.</p>
+  <p style="font-size:19px;color:var(--gray-600);max-width:520px;margin:0 auto;line-height:1.5;">Certified. Battle-tested. Each a black belt in their SF domain. All fluent in Engage.</p>
 </section>
 
 <!-- FEATURED LEADER -->
 <section class="leader-section">
   <div class="leader-inner">
     <div style="display:flex;justify-content:center;">
-      <div class="leader-avatar">
-        SS
+      <div class="leader-avatar">SS
         <div class="leader-badge-ring">
           <svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="white"/></svg>
         </div>
@@ -606,11 +614,30 @@ footer a:hover{color:var(--gray-800);}
   </div>
 </section>
 
-<!-- TEAM GRID -->
-<section style="background:var(--gray-50);padding:72px 0 80px;">
-  <div style="max-width:980px;margin:0 auto;padding:0 40px;">
-    <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:40px;text-align:center;">The full squad — hover to reveal</div>
-    <div class="team-grid" id="teamGrid" style="padding:0;"></div>
+<!-- SENIOR CONSULTANTS -->
+<section style="background:var(--gray-50);padding:72px 40px 0;">
+  <div style="max-width:980px;margin:0 auto;">
+    <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;">Senior consultants</div>
+    <p style="font-size:15px;color:var(--gray-400);margin-bottom:32px;">8+ years of hands-on SF delivery experience</p>
+    <div class="team-grid" id="seniorGrid"></div>
+  </div>
+</section>
+
+<!-- CONSULTANT TEAM -->
+<section style="background:var(--gray-50);padding:48px 40px 80px;">
+  <div style="max-width:980px;margin:0 auto;">
+    <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;">Consultants</div>
+    <p style="font-size:15px;color:var(--gray-400);margin-bottom:32px;">The delivery engine behind every go-live</p>
+    <div class="team-grid" id="juniorGrid"></div>
+  </div>
+</section>
+
+<!-- CLIENT REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;">Client voices</div>
+    <h2 style="font-size:40px;font-weight:600;letter-spacing:-0.003em;color:var(--white);max-width:520px;line-height:1.1;">What our clients say.</h2>
+    <div class="reviews-grid" id="reviewsGrid"></div>
   </div>
 </section>
 
@@ -926,52 +953,52 @@ const MODULE_COLORS={
 const TEAM=[
   {name:'Mahima',initials:'MA',grad:'linear-gradient(135deg,#1a3a5c,#0071e3)',
    role:'SF Consultant',exp:'3 yrs',senior:false,
-   superpower:'Go-to for seamless onboarding journeys and talent pipelines. Knows RCM inside out — from requisition to offer letter.',
+   superpower:'The Employee Central champion of the team. Builds bulletproof org structures, position management and HR foundations that every other module depends on.',
    modules:['EC','RCM','ONB','PMGM','Engage'],
    projects:['Velora','HHEO','TEC','ARG'],
-   review:{text:'Mahima configured our entire onboarding flow in record time. Clients did not even notice the complexity behind it.',client:'Velora Project'}},
+   review:{text:'Mahima configured our entire onboarding flow in record time. Clients did not even notice the complexity behind it.',client:'Velora',project:'EC · RCM · ONB'}},
   {name:'Harshita H',initials:'HH',grad:'linear-gradient(135deg,#1a4a2e,#16a34a)',
    role:'SF Consultant',exp:'3 yrs',senior:false,
    superpower:'The Smart Recruiters specialist. Bridges SF RCM and third-party ATS integrations with precision and zero rework.',
    modules:['RCM','ONB','Smart REC','EC','Engage'],
    projects:['SLC','DRE','ARG'],
-   review:{text:'Harshita delivered the RCM integration with Smart Recruiters on time, zero defects at go-live.',client:'SLC Project'}},
+   review:{text:'Harshita delivered the RCM integration with Smart Recruiters on time, zero defects at go-live.',client:'SLC',project:'RCM · Smart REC · ONB'}},
   {name:'Madhur V',initials:'MV',grad:'linear-gradient(135deg,#3b0764,#9333ea)',
    role:'SF Consultant',exp:'2 yrs',senior:false,
    superpower:'Makes time management elegant. Handles complex shift rules and EC org structures that would make most consultants sweat.',
    modules:['EC','Time','Engage'],
    projects:['SLC','ARG'],
-   review:{text:'Madhur understood our time tracking complexity from day one. The configuration was spot-on first time.',client:'SLC Project'}},
+   review:{text:'Madhur understood our time tracking complexity from day one. The configuration was spot-on first time.',client:'SLC',project:'EC · Time'}},
   {name:'Sangeetha J',initials:'SJ',grad:'linear-gradient(135deg,#7c1d1d,#ef4444)',
    role:'SF Consultant',exp:'3 yrs',senior:false,
    superpower:'The LMS architect of the team. Builds learning curricula and compliance programmes that actually get adopted.',
    modules:['LMS','EC','Engage'],
    projects:['Velora','Bareeq'],
-   review:{text:'Sangeetha built our entire mandatory training framework in LMS. Adoption rates exceeded every target.',client:'Bareeq Project'}},
+   review:{text:'Sangeetha built our entire mandatory training framework in LMS. Adoption rates exceeded every target.',client:'Bareeq',project:'LMS · EC'}},
   {name:'Faabi Ayisha',initials:'FA',grad:'linear-gradient(135deg,#1c1917,#78716c)',
    role:'SF Consultant',exp:'2 yrs',senior:false,
-   superpower:'Employee Central champion. Turns complex org hierarchies and position management into clean, auditable structures.',
+   superpower:'Meticulous and precise. Specialises in EC data integrity, org hierarchy configuration, and ensuring every employee record is clean from day one.',
    modules:['EC','Engage'],
    projects:['SLC','Bloom'],
-   review:{text:'Faabi had our org structure migrated and validated faster than expected. No data issues post go-live.',client:'Bloom Project'}},
+   review:{text:'Faabi had our org structure migrated and validated faster than expected. No data issues post go-live.',client:'Bloom',project:'EC'}},
   {name:'Vibhanshu N',initials:'VN',grad:'linear-gradient(135deg,#0c4a6e,#0ea5e9)',
    role:'Senior SF Consultant',exp:'8 yrs',senior:true,
    superpower:'The performance and succession guru. Builds goal frameworks that align entire organisations — and calibration sessions that actually work.',
    modules:['PMGM','Succession','RCM','ONB','EC','Comp','Engage'],
    projects:['Velora','SLC','HHEO','ECSSR','TEC'],
-   review:{text:'Vibhanshu redesigned our entire performance cycle. The calibration setup alone saved our HR team weeks every quarter.',client:'ECSSR Project'}},
+   review:{text:'Vibhanshu redesigned our entire performance cycle. The calibration setup alone saved our HR team weeks every quarter.',client:'ECSSR',project:'PMGM · Succession'}},
   {name:'Bharath K',initials:'BK',grad:'linear-gradient(135deg,#064e3b,#10b981)',
    role:'Senior SF Consultant',exp:'8 yrs',senior:true,
    superpower:'RCM and PMGM powerhouse. Handles end-to-end talent acquisition and performance cycles across complex multi-entity setups.',
    modules:['RCM','ONB','PMGM','EC','Engage'],
    projects:['Velora','TEC'],
-   review:{text:'Bharath delivered the full RCM and PMGM scope across three entities simultaneously. Exceptional delivery.',client:'TEC Project'}},
+   review:{text:'Bharath delivered the full RCM and PMGM scope across three entities simultaneously. Exceptional delivery.',client:'TEC',project:'RCM · PMGM · ONB'}},
   {name:'Sarada Y',initials:'SY',grad:'linear-gradient(135deg,#4c0519,#e11d48)',
    role:'Payroll Lead',exp:'15 yrs',senior:true,
    superpower:'The payroll oracle. 15 years means she has seen every edge case. GCC statutory, end-of-service, multi-entity — nothing fazes her.',
    modules:['Payroll','EC','Engage'],
    projects:['SLC'],
-   review:{text:'Sarada ensured our payroll go-live was flawless. Her knowledge of UAE statutory requirements is unmatched.',client:'SLC Project'}},
+   review:{text:'Sarada ensured our payroll go-live was flawless. Her knowledge of UAE statutory requirements is unmatched.',client:'SLC',project:'Payroll · EC'}},
 ];
 
 function makeBadge(mod){
@@ -980,30 +1007,15 @@ function makeBadge(mod){
 }
 
 function renderTeam(){
-  // Shubham badges
   var shMods=['EC','RCM','ONB','PMGM','LMS','Time','Payroll','Comp','Succession','Analytics','Engage'];
   var shEl=document.getElementById('shubham-badges');
   if(shEl) shEl.innerHTML=shMods.map(makeBadge).join('');
 
-  // Team grid
-  var g=document.getElementById('teamGrid');
-  if(!g) return;
-  var html='';
-  for(var i=0;i<TEAM.length;i++){
-    var t=TEAM[i];
+  function cardHTML(t){
     var badges=t.modules.map(makeBadge).join('');
     var projs=t.projects.map(function(p){return '<span class="proj-tag">'+p+'</span>';}).join('');
-    var overlayMods=t.modules.map(function(m){return '<span class="tc-overlay-mod">'+m+'</span>';}).join('');
     var starHtml=t.senior?'<div class="tc-star"><svg viewBox="0 0 24 24" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="white"/></svg></div>':'';
-    var reviewHtml='';
-    if(t.review){
-      reviewHtml='<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);">'
-        +'<div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:5px;">Client voice</div>'
-        +'<div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5;font-style:italic;">"'+t.review.text+'"</div>'
-        +'<div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:4px;">— '+t.review.client+'</div>'
-        +'</div>';
-    }
-    html+='<div class="tc">'
+    return '<div class="tc">'
       +'<div class="tc-top">'
       +'<div class="tc-avatar" style="background:'+t.grad+';">'+t.initials+starHtml+'</div>'
       +'<div class="tc-name">'+t.name+'</div>'
@@ -1012,16 +1024,48 @@ function renderTeam(){
       +'</div>'
       +'<div class="tc-badges">'+badges+'</div>'
       +'<div class="tc-divider"></div>'
+      +'<div class="tc-superpower">'+t.superpower+'</div>'
       +'<div class="tc-projects">'+projs+'</div>'
-      +'<div class="tc-overlay">'
-      +'<p class="tc-overlay-quote">"'+t.superpower+'"</p>'
-      +'<div class="tc-overlay-title">Black belt modules</div>'
-      +'<div class="tc-overlay-mods">'+overlayMods+'</div>'
-      +reviewHtml
-      +'</div>'
       +'</div>';
   }
-  g.innerHTML=html;
+
+  var seniors=TEAM.filter(function(t){return t.senior;});
+  var juniors=TEAM.filter(function(t){return !t.senior;});
+
+  var sg=document.getElementById('seniorGrid');
+  if(sg) sg.innerHTML=seniors.map(cardHTML).join('');
+
+  var jg=document.getElementById('juniorGrid');
+  if(jg) jg.innerHTML=juniors.map(cardHTML).join('');
+
+  // Reviews
+  var allReviews=[];
+  var allTeam=[{name:'Shubham Sharma',initials:'SS',grad:'linear-gradient(135deg,#0d2a4a,#0071e3)',
+    review:{text:'Shubham led the entire TASC implementation personally. His depth across every module meant we never needed to escalate anything to SAP.',client:'TASC',project:'EC · Time · ONB · RCM'}}];
+  TEAM.forEach(function(t){ if(t.review) allTeam.push(t); });
+
+  var rg=document.getElementById('reviewsGrid');
+  if(rg){
+    var rvHtml='';
+    for(var i=0;i<allTeam.length;i++){
+      var t=allTeam[i];
+      if(!t.review) continue;
+      var stars='';
+      for(var s=0;s<5;s++) stars+='<svg class="rv-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+      rvHtml+='<div class="rv">'
+        +'<div class="rv-stars">'+stars+'</div>'
+        +'<div class="rv-quote">"'+t.review.text+'"</div>'
+        +'<div class="rv-footer">'
+        +'<div class="rv-avatar" style="background:'+t.grad+';">'+t.initials+'</div>'
+        +'<div>'
+        +'<div class="rv-name">Delivered by '+t.name+'</div>'
+        +'<div class="rv-meta">'+t.review.client+' &nbsp;·&nbsp; '+t.review.project+'</div>'
+        +'</div>'
+        +'</div>'
+        +'</div>';
+    }
+    rg.innerHTML=rvHtml;
+  }
 
   // Legend
   var lb=document.getElementById('legendBadges');
