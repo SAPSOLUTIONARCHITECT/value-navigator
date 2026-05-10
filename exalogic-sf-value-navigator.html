@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SAP SuccessFactors Value Navigator · Exalogic Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ec-blue:#3a6ea8;
+  --ec-blue-dark:#2a5080;
+  --ec-blue-light:#e8f0f8;
+  --ec-blue-mid:#5a8cbf;
+  --ec-slate:#5a6a7a;
+  --ec-slate-light:#e8ecf0;
+  --ec-text:#1a2332;
+  --ec-muted:#6b7a8d;
+  --ec-border:#dde3ea;
+  --ec-white:#ffffff;
+  --ec-bg:#f7f9fb;
+  --ec-success:#2a8a5a;
+  --ec-success-bg:#e8f5ee;
+  --ec-gold:#b8860b;
+  --ec-gold-bg:#fdf5e0;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 2px 16px rgba(58,110,168,0.08);
+  --shadow-hover:0 6px 28px rgba(58,110,168,0.15);
+  --trans:all 0.22s ease;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--ec-white);color:var(--ec-text);min-height:100vh;font-size:15px;line-height:1.6;}
+
+/* NAV */
+nav{background:var(--ec-white);border-bottom:1px solid var(--ec-border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;height:64px;}
+.nav-logo img{height:36px;display:block;}
+.nav-links{display:flex;gap:8px;align-items:center;}
+.nav-link{font-size:13px;font-weight:500;color:var(--ec-muted);text-decoration:none;padding:6px 14px;border-radius:6px;transition:var(--trans);}
+.nav-link:hover,.nav-link.active{color:var(--ec-blue);background:var(--ec-blue-light);}
+.nav-cta{background:var(--ec-blue);color:white!important;border-radius:6px;padding:7px 18px!important;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:var(--trans);}
+.nav-cta:hover{background:var(--ec-blue-dark);}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#f0f5fc 0%,#fafbff 60%,#f7f9fb 100%);padding:72px 40px 60px;text-align:center;border-bottom:1px solid var(--ec-border);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--ec-blue-light);color:var(--ec-blue);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:24px;}
+.hero-badge span{width:6px;height:6px;background:var(--ec-blue);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:48px;line-height:1.15;color:var(--ec-text);margin-bottom:16px;max-width:680px;margin-left:auto;margin-right:auto;}
+.hero h1 em{color:var(--ec-blue);font-style:italic;}
+.hero p{font-size:17px;color:var(--ec-muted);max-width:520px;margin:0 auto 36px;font-weight:400;}
+.hero-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:40px;}
+.hero-step{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ec-muted);}
+.hero-step span{width:24px;height:24px;background:var(--ec-blue-light);color:var(--ec-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.hero-step.active span{background:var(--ec-blue);color:white;}
+.step-line{width:40px;height:1px;background:var(--ec-border);margin:0 4px;}
+
+/* TOOL AREA */
+.tool{max-width:960px;margin:0 auto;padding:48px 40px;}
+
+/* STEP PANELS */
+.step-panel{display:none;}
+.step-panel.active{display:block;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.step-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-text);margin-bottom:6px;}
+.step-sub{font-size:15px;color:var(--ec-muted);margin-bottom:32px;}
+
+/* INDUSTRY GRID */
+.industry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.industry-card{border:1.5px solid var(--ec-border);border-radius:var(--radius);padding:20px 16px;cursor:pointer;transition:var(--trans);background:white;text-align:left;}
+.industry-card:hover{border-color:var(--ec-blue-mid);box-shadow:var(--shadow);}
+.industry-card.selected{border-color:var(--ec-blue);background:var(--ec-blue-light);}
+.industry-card .ic-icon{font-size:28px;margin-bottom:10px;display:block;}
+.industry-card .ic-name{font-size:14px;font-weight:600;color:var(--ec-text);}
+.industry-card .ic-sub{font-size:12px;color:var(--ec-muted);margin-top:2px;}
+
+/* PAIN POINT GRID */
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pain-card{border:1.5px solid var(--ec-border);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:var(--trans);background:white;display:flex;align-items:flex-start;gap:12px;}
+.pain-card:hover{border-color:var(--ec-blue-mid);box-shadow:var(--shadow);}
+.pain-card.selected{border-color:var(--ec-blue);background:var(--ec-blue-light);}
+.pain-card .pc-check{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--ec-border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:var(--trans);}
+.pain-card.selected .pc-check{background:var(--ec-blue);border-color:var(--ec-blue);color:white;}
+.pain-card .pc-text{font-size:13px;font-weight:500;color:var(--ec-text);}
+.pain-card .pc-sub{font-size:12px;color:var(--ec-muted);margin-top:2px;}
+
+/* ACTION BAR */
+.action-bar{display:flex;align-items:center;justify-content:space-between;margin-top:32px;padding-top:24px;border-top:1px solid var(--ec-border);}
+.btn{padding:10px 24px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:var(--trans);border:none;font-family:'DM Sans',sans-serif;}
+.btn-primary{background:var(--ec-blue);color:white;}
+.btn-primary:hover{background:var(--ec-blue-dark);}
+.btn-primary:disabled{background:var(--ec-border);color:var(--ec-muted);cursor:not-allowed;}
+.btn-ghost{background:transparent;color:var(--ec-muted);border:1.5px solid var(--ec-border);}
+.btn-ghost:hover{border-color:var(--ec-blue);color:var(--ec-blue);}
+.sel-count{font-size:13px;color:var(--ec-muted);}
+.sel-count strong{color:var(--ec-blue);}
+
+/* ROADMAP */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;}
+.kpi-card{background:white;border:1px solid var(--ec-border);border-radius:var(--radius);padding:20px;text-align:center;}
+.kpi-num{font-family:'DM Serif Display',serif;font-size:36px;color:var(--ec-blue);line-height:1;}
+.kpi-label{font-size:12px;color:var(--ec-muted);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;}
+
+.module-list{display:grid;gap:10px;margin-bottom:36px;}
+.module-row{background:white;border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:14px 18px;display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;}
+.mod-rank{width:28px;height:28px;background:var(--ec-blue-light);color:var(--ec-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.mod-name{font-size:14px;font-weight:600;color:var(--ec-text);}
+.mod-desc{font-size:12px;color:var(--ec-muted);}
+.mod-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.tag-high{background:var(--ec-success-bg);color:var(--ec-success);}
+.tag-med{background:var(--ec-gold-bg);color:var(--ec-gold);}
+.tag-low{background:var(--ec-slate-light);color:var(--ec-slate);}
+.mod-time{font-size:12px;color:var(--ec-muted);white-space:nowrap;}
+
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ec-muted);margin-bottom:14px;}
+
+/* TIMELINE */
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:40px;}
+.tl-phase{padding:20px;border:1px solid var(--ec-border);background:white;}
+.tl-phase:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+.tl-phase:last-child{border-radius:0 var(--radius) var(--radius) 0;}
+.tl-phase:not(:first-child){border-left:none;}
+.tl-num{font-size:11px;font-weight:700;color:var(--ec-blue);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
+.tl-name{font-size:15px;font-weight:600;color:var(--ec-text);margin-bottom:4px;}
+.tl-dur{font-size:13px;color:var(--ec-muted);}
+.tl-items{margin-top:10px;display:grid;gap:4px;}
+.tl-item{font-size:12px;color:var(--ec-muted);display:flex;align-items:center;gap:6px;}
+.tl-item::before{content:'';width:4px;height:4px;background:var(--ec-blue);border-radius:50%;flex-shrink:0;}
+
+/* PAIN→MODULE TABLE */
+.map-table{width:100%;border-collapse:collapse;font-size:13px;}
+.map-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ec-muted);border-bottom:1.5px solid var(--ec-border);}
+.map-table td{padding:11px 14px;border-bottom:1px solid var(--ec-border);vertical-align:middle;}
+.map-table tr:last-child td{border-bottom:none;}
+.map-table tr:hover td{background:var(--ec-bg);}
+
+/* ENGAGE SECTION */
+.engage-section{background:var(--ec-blue-light);border-radius:var(--radius);padding:40px;margin-top:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+.engage-title{font-family:'DM Serif Display',serif;font-size:24px;color:var(--ec-text);margin-bottom:8px;}
+.engage-sub{font-size:14px;color:var(--ec-muted);margin-bottom:20px;max-width:440px;}
+.engage-options{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-engage{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:var(--trans);font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;}
+.btn-engage-primary{background:var(--ec-blue);color:white;border:none;}
+.btn-engage-primary:hover{background:var(--ec-blue-dark);}
+.btn-engage-secondary{background:white;color:var(--ec-blue);border:1.5px solid var(--ec-blue);}
+.btn-engage-secondary:hover{background:var(--ec-blue);color:white;}
+.engage-logo img{height:48px;opacity:0.85;}
+
+/* FOOTER */
+footer{background:var(--ec-text);color:rgba(255,255,255,0.5);text-align:center;padding:24px 40px;font-size:12px;}
+footer strong{color:white;}
+footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
+footer a:hover{color:white;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:var(--radius);padding:40px;max-width:480px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:fadeIn 0.25s ease;}
+.modal h2{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px;}
+.modal p{font-size:14px;color:var(--ec-muted);margin-bottom:24px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--ec-text);}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--ec-border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:var(--trans);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--ec-blue);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.modal-actions{display:flex;gap:10px;margin-top:8px;}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ec-muted);}
+.modal{position:relative;}
+.success-msg{display:none;text-align:center;padding:20px;}
+.success-msg .check{font-size:48px;margin-bottom:12px;}
+.success-msg h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px;}
+.success-msg p{font-size:14px;color:var(--ec-muted);}
+
+/* DOWNLOAD BANNER */
+.download-bar{background:var(--ec-bg);border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-top:20px;}
+.download-bar span{font-size:13px;color:var(--ec-muted);}
+.download-bar strong{color:var(--ec-text);}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media(max-width:700px){
+  .pain-grid{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr;}
+  .tl-phase:first-child{border-radius:var(--radius) var(--radius) 0 0;}
+  .tl-phase:last-child{border-radius:0 0 var(--radius) var(--radius);}
+  .tl-phase:not(:first-child){border-left:1px solid var(--ec-border);border-top:none;}
+  .hero h1{font-size:32px;}
+  .kpi-row{grid-template-columns:1fr;}
+  nav{padding:0 20px;}
+  .tool{padding:32px 20px;}
+  #contact-form-section > div{grid-template-columns:1fr!important;}
+  #engage-section > div:first-child > div{grid-template-columns:1fr!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="data:image/jpeg;base64,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" alt="Exalogic Consulting"/>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#" onclick="goStep(1);return false;">Navigator</a>
+    <a class="nav-link" href="#engage-section">Engage</a>
+    <a class="nav-link" href="https://exalogic.co" target="_blank">exalogic.co ↗</a>
+    <button class="nav-cta" onclick="openModal()">Book a Call</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span>Live · Industry Diagnostic</div>
+  <h1>Find your <em>HR transformation</em> roadmap in 3 minutes</h1>
+  <p>SAP SuccessFactors maps directly to the pain points your HR organisation feels every day. Select your industry to begin.</p>
+  <div class="hero-steps">
+    <div class="hero-step active" id="hs1"><span>01</span>Industry</div>
+    <div class="step-line"></div>
+    <div class="hero-step" id="hs2"><span>02</span>Pain Points</div>
+    <div class="step-line"></div>
+    <div class="hero-step" id="hs3"><span>03</span>Your Roadmap</div>
+  </div>
+</section>
+
+<!-- TOOL -->
+<main class="tool">
+
+  <!-- STEP 1: Industry -->
+  <div class="step-panel active" id="step1">
+    <h2 class="step-title">Select your industry</h2>
+    <p class="step-sub">Each industry surfaces the most relevant pain points we hear from HR leaders.</p>
+    <div class="industry-grid" id="industryGrid"></div>
+    <div class="action-bar">
+      <span class="sel-count" id="ind-count">Select an industry to continue</span>
+      <button class="btn btn-primary" id="btn-next1" disabled onclick="goStep(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Pain Points -->
+  <div class="step-panel" id="step2">
+    <h2 class="step-title" id="pain-title">What keeps your HR team up at night?</h2>
+    <p class="step-sub">Select every pain point that resonates. The more you select, the more precise your roadmap.</p>
+    <div class="pain-grid" id="painGrid"></div>
+    <div class="action-bar">
+      <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+      <span class="sel-count"><strong id="pain-count">0</strong> selected</span>
+      <button class="btn btn-primary" id="btn-next2" disabled onclick="buildRoadmap()">Generate Roadmap →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Roadmap -->
+  <div class="step-panel" id="step3">
+    <h2 class="step-title">Your SAP SuccessFactors Roadmap</h2>
+    <p class="step-sub" id="roadmap-sub"></p>
+
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="kpi-num" id="kpi-modules">0</div><div class="kpi-label">Priority Modules</div></div>
+      <div class="kpi-card"><div class="kpi-num" id="kpi-savings">0%</div><div class="kpi-label">Est. Admin Time Saved</div></div>
+      <div class="kpi-card"><div class="kpi-num" id="kpi-risks">0</div><div class="kpi-label">Risk Areas Covered</div></div>
+    </div>
+
+    <div class="section-label">Recommended modules · priority ranked</div>
+    <div class="module-list" id="moduleList"></div>
+
+    <div class="section-label" style="margin-top:36px;">Implementation approach</div>
+    <div class="timeline">
+      <div class="tl-phase">
+        <div class="tl-num">Phase 01</div>
+        <div class="tl-name">Discover</div>
+        <div class="tl-dur">4–6 weeks</div>
+        <div class="tl-items">
+          <div class="tl-item">Stakeholder workshops</div>
+          <div class="tl-item">As-is process mapping</div>
+          <div class="tl-item">Solution blueprint</div>
+        </div>
+      </div>
+      <div class="tl-phase">
+        <div class="tl-num">Phase 02</div>
+        <div class="tl-name">Deploy</div>
+        <div class="tl-dur" id="deploy-dur">3–6 months</div>
+        <div class="tl-items">
+          <div class="tl-item">Agile configuration sprints</div>
+          <div class="tl-item">Data migration & integrations</div>
+          <div class="tl-item">UAT & hypercare</div>
+        </div>
+      </div>
+      <div class="tl-phase">
+        <div class="tl-num">Phase 03</div>
+        <div class="tl-name">Optimise</div>
+        <div class="tl-dur">Ongoing</div>
+        <div class="tl-items">
+          <div class="tl-item">Analytics & reporting</div>
+          <div class="tl-item">Release adoption</div>
+          <div class="tl-item">Centre of excellence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Pain point → module mapping</div>
+    <div style="border:1px solid var(--ec-border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:8px;">
+      <table class="map-table">
+        <thead><tr><th>Pain point</th><th>SF Module</th><th>Business impact</th><th>Typical go-live</th></tr></thead>
+        <tbody id="mapTable"></tbody>
+      </table>
+    </div>
+
+    <div class="download-bar">
+      <span><strong>Want this as a PDF?</strong> Engage our team to receive a personalised business case deck.</span>
+      <button class="btn btn-primary" onclick="openModal()">Request Summary</button>
+    </div>
+
+    <div class="action-bar" style="margin-top:20px;">
+      <button class="btn btn-ghost" onclick="goStep(2)">← Adjust pain points</button>
+      <button class="btn btn-ghost" onclick="goStep(1)">Start over</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- ENGAGE SECTION -->
+<section id="engage-section" style="background:var(--ec-bg);border-top:1px solid var(--ec-border);padding:80px 0 0;">
+
+  <!-- ENGAGE HERO BAND -->
+  <div style="max-width:960px;margin:0 auto;padding:0 40px 64px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ec-blue);margin-bottom:14px;">Work with Exalogic</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-size:36px;line-height:1.2;color:var(--ec-text);margin-bottom:16px;">Your <em style="color:var(--ec-blue);font-style:italic;">dedicated</em> SAP SuccessFactors partner</h2>
+        <p style="font-size:15px;color:var(--ec-muted);line-height:1.7;margin-bottom:24px;">Exalogic Consulting is a specialist SAP SuccessFactors partner headquartered in Dubai, with a track record spanning the Middle East, Asia-Pacific, and Europe. We don't do generalist ERP — we do SF, deeply.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:16px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-blue);">100+</div>
+            <div style="font-size:12px;color:var(--ec-muted);margin-top:2px;font-weight:500;">SF implementations delivered</div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:16px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-blue);">8+</div>
+            <div style="font-size:12px;color:var(--ec-muted);margin-top:2px;font-weight:500;">Years of SF specialisation</div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:16px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-blue);">15+</div>
+            <div style="font-size:12px;color:var(--ec-muted);margin-top:2px;font-weight:500;">Countries covered</div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius-sm);padding:16px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-blue);">10+</div>
+            <div style="font-size:12px;color:var(--ec-muted);margin-top:2px;font-weight:500;">SF modules in scope</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="document.getElementById('contact-form-section').scrollIntoView({behavior:'smooth'})">Get in touch →</button>
+          <a href="https://exalogic.co" target="_blank" class="btn btn-ghost" style="text-decoration:none;">Visit exalogic.co ↗</a>
+        </div>
+      </div>
+      <div>
+        <!-- Why Exalogic cards -->
+        <div style="display:grid;gap:12px;">
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius);padding:20px;display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;background:var(--ec-blue-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎯</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:4px;">SF-only focus</div>
+              <div style="font-size:13px;color:var(--ec-muted);">We work exclusively on SAP SuccessFactors — no distractions, no generalist consultants parachuted in.</div>
+            </div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius);padding:20px;display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;background:var(--ec-blue-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌍</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:4px;">Deep regional expertise</div>
+              <div style="font-size:13px;color:var(--ec-muted);">UAE labour law, Saudi localisation, GCC payroll nuances — we know the regional complexity inside out.</div>
+            </div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius);padding:20px;display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;background:var(--ec-blue-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⚙️</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:4px;">Full-suite capability</div>
+              <div style="font-size:13px;color:var(--ec-muted);">EC · Time Tracking · Payroll · RCM · ONB · PMGM · LMS · Compensation · People Analytics · IAS/IPS</div>
+            </div>
+          </div>
+          <div style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius);padding:20px;display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;background:var(--ec-blue-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🤝</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:4px;">Post go-live partnership</div>
+              <div style="font-size:13px;color:var(--ec-muted);">We stay with you — release adoption, optimisation, AMS support, and centre of excellence setup.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES BAND -->
+  <div style="background:white;border-top:1px solid var(--ec-border);border-bottom:1px solid var(--ec-border);padding:60px 0;">
+    <div style="max-width:960px;margin:0 auto;padding:0 40px;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ec-blue);margin-bottom:10px;">What we deliver</div>
+        <h3 style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-text);">End-to-end SuccessFactors services</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🚀</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">Greenfield Implementation</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Full SF suite deployment from blueprint to go-live, using Exalogic's proven agile delivery framework.</div>
+        </div>
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🔄</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">Migration & Upgrade</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Migrate from legacy HRIS (Oracle, Workday, SAP HCM) to SuccessFactors with zero data loss.</div>
+        </div>
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🔗</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">Integration & Extensions</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Integration Center, BTP, IAS/IPS, and custom API connectors to payroll, finance, and third-party systems.</div>
+        </div>
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">📊</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">People Analytics</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Story-based reporting, embedded analytics, and predictive workforce insights tailored to your KPIs.</div>
+        </div>
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🛡️</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">AMS & Optimisation</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Application Managed Services — ongoing support, quarterly release adoption, and continuous improvement.</div>
+        </div>
+        <div style="border:1px solid var(--ec-border);border-radius:var(--radius);padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🎓</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ec-text);margin-bottom:8px;">Training & Enablement</div>
+          <div style="font-size:13px;color:var(--ec-muted);line-height:1.6;">Role-based training programmes, admin upskilling, and centre of excellence setup for your HR team.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT SECTORS -->
+  <div style="max-width:960px;margin:0 auto;padding:60px 40px;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ec-blue);margin-bottom:10px;">Sectors we serve</div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--ec-text);">Trusted across industries in the region</h3>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:48px;">
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🏛️ Government & GRE</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">✈️ Aviation</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🏦 Banking & Finance</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🛢️ Oil & Gas / Energy</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🏥 Healthcare & Pharma</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🏗️ Construction & Real Estate</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">🛍️ Retail & FMCG</span>
+      <span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:13px;font-weight:500;padding:8px 18px;border-radius:24px;">📡 Telecom & Technology</span>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div id="contact-form-section" style="background:white;border:1px solid var(--ec-border);border-radius:var(--radius);overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <!-- Left panel -->
+        <div style="background:var(--ec-blue);padding:40px;color:white;">
+          <img src="data:image/jpeg;base64,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" alt="Exalogic" style="height:40px;filter:brightness(0) invert(1);opacity:0.9;margin-bottom:24px;display:block;"/>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:white;margin-bottom:12px;">Start your SF journey with us</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:28px;">Whether you're evaluating SuccessFactors for the first time or looking to optimise an existing implementation, our team is ready to help.</p>
+          <div style="display:grid;gap:14px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📞</div>
+              <div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Phone / WhatsApp</div>
+                <div style="font-size:13px;color:white;font-weight:500;">+971 4 XXX XXXX</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✉️</div>
+              <div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Email</div>
+                <div style="font-size:13px;color:white;font-weight:500;">info@exalogic.co</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📍</div>
+              <div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Office</div>
+                <div style="font-size:13px;color:white;font-weight:500;">Dubai, United Arab Emirates</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🌐</div>
+              <div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Website</div>
+                <a href="https://exalogic.co" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;text-decoration:none;">www.exalogic.co ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right panel: Contact form -->
+        <div style="padding:40px;" id="engage-form-panel">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ec-text);margin-bottom:6px;">Send us a message</h3>
+          <p style="font-size:13px;color:var(--ec-muted);margin-bottom:24px;">We'll respond within one business day.</p>
+          <div class="form-group"><label>Full name *</label><input type="text" id="ef-name" placeholder="Your name"/></div>
+          <div class="form-group"><label>Work email *</label><input type="email" id="ef-email" placeholder="you@company.com"/></div>
+          <div class="form-group"><label>Organisation</label><input type="text" id="ef-org" placeholder="Company name"/></div>
+          <div class="form-group">
+            <label>I'm interested in</label>
+            <select id="ef-interest">
+              <option value="">Select an option…</option>
+              <option>New SF implementation</option>
+              <option>Migration from legacy HRIS</option>
+              <option>Adding modules to existing SF</option>
+              <option>AMS / ongoing support</option>
+              <option>People Analytics / reporting</option>
+              <option>SF health check / audit</option>
+              <option>Training & enablement</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Tell us about your project</label><textarea id="ef-msg" placeholder="Briefly describe your timeline, team size, and key challenges…" style="min-height:90px;"></textarea></div>
+          <button class="btn btn-primary" onclick="submitEngageForm()" style="width:100%;">Send message →</button>
+        </div>
+        <div id="engage-success-panel" style="padding:40px;display:none;text-align:center;align-items:center;justify-content:center;flex-direction:column;">
+          <div style="font-size:52px;margin-bottom:16px;">✅</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ec-text);margin-bottom:8px;">Message sent!</h3>
+          <p style="font-size:14px;color:var(--ec-muted);max-width:280px;margin:0 auto;">An Exalogic consultant will be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Exalogic Consulting</strong> · SAP SuccessFactors Value Navigator · Dubai, UAE &nbsp;|&nbsp;
+  <a href="https://exalogic.co" target="_blank">exalogic.co</a> &nbsp;|&nbsp;
+  <a href="mailto:info@exalogic.co">info@exalogic.co</a>
+  <br/><span style="opacity:0.5;font-size:11px;">© 2026 Exalogic Consulting. All rights reserved.</span>
+</footer>
+
+<!-- ENGAGE MODAL -->
+<div class="modal-overlay" id="engageModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modal-form-view">
+      <h2>Let's talk SuccessFactors</h2>
+      <p>Our certified consultants will reach out within one business day.</p>
+      <div class="form-group"><label>Full name</label><input type="text" id="f-name" placeholder="Shubham Sharma"/></div>
+      <div class="form-group"><label>Work email</label><input type="email" id="f-email" placeholder="you@company.com"/></div>
+      <div class="form-group"><label>Organisation</label><input type="text" id="f-org" placeholder="Company name"/></div>
+      <div class="form-group"><label>What are you looking to achieve?</label><textarea id="f-msg" placeholder="Briefly describe your HR challenge or project scope…"></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="submitForm()" style="flex:1;">Send →</button>
+        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+    <div class="success-msg" id="modal-success-view">
+      <div class="check">✅</div>
+      <h3>Message received!</h3>
+      <p>Thank you — an Exalogic consultant will be in touch within one business day.</p>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const INDUSTRIES = [
+  {id:'oil-gas',icon:'🛢️',name:'Oil & Gas / Energy',sub:'Upstream · Midstream · Downstream'},
+  {id:'govt',icon:'🏛️',name:'Government / Public Sector',sub:'Federal · Municipal · GRE'},
+  {id:'banking',icon:'🏦',name:'Banking & Financial Services',sub:'Retail · Investment · Insurance'},
+  {id:'healthcare',icon:'🏥',name:'Healthcare & Pharma',sub:'Hospitals · Life Sciences'},
+  {id:'retail',icon:'🛍️',name:'Retail & FMCG',sub:'Consumer Goods · Distribution'},
+  {id:'construction',icon:'🏗️',name:'Construction & Real Estate',sub:'EPC · Property Development'},
+  {id:'telecom',icon:'📡',name:'Telecom & Technology',sub:'ISPs · Software · IT Services'},
+  {id:'aviation',icon:'✈️',name:'Aviation & Logistics',sub:'Airlines · Freight · Supply Chain'},
+  {id:'hospitality',icon:'🏨',name:'Hospitality & Tourism',sub:'Hotels · Travel · F&B'},
+  {id:'education',icon:'🎓',name:'Education',sub:'Universities · Schools · Training'},
+];
+
+const PAIN_POINTS = {
+  'oil-gas':    ['Decentralised employee data across rigs & sites','Complex shift scheduling & time tracking','Regulatory compliance & safety certifications','High attrition in field operations','Lengthy new hire onboarding for remote workers','Manual payroll for multiple countries','Succession gaps for critical technical roles','No unified performance & goal framework'],
+  'govt':       ['Paper-based HR processes & approvals','Rigid pay scales with complex allowances','Compliance with civil service regulations','Limited visibility across departments','Manual leave & absence management','Difficulty attracting digital talent','Poor succession planning for leadership','Decentralised training tracking'],
+  'banking':    ['Regulatory-driven skills tracking & compliance','Complex compensation & incentive plans','Risk of losing top talent to competitors','Fragmented onboarding across entities','Manual performance calibration cycles','Inconsistent leave policies across regions','Lack of real-time workforce analytics','Siloed HR data across business units'],
+  'healthcare': ['Credentialing & licencing management','24/7 roster & shift management','High nurse/clinician turnover','Complex overtime & on-call tracking','Onboarding large batches of new hires','Compliance with MOH/JCI regulations','Training & mandatory certification tracking','Pay equity concerns across roles'],
+  'retail':     ['High seasonal workforce variability','Complex schedule management across stores','High turnover & disengagement','Inconsistent onboarding experience','Compliance with local labour laws','No clear career path for store staff','Manual time & attendance reconciliation','Limited insight into workforce productivity'],
+  'construction':['Managing sub-contractors & workers','Site-level time & attendance tracking','Safety training compliance','Mobilisation & demobilisation processes','Labour law compliance across regions','Skills matrix for project resourcing','High workforce turnover','Limited visibility of workforce costs'],
+  'telecom':    ['Fast-paced talent acquisition needs','Complex bonus & commission structures','Employee experience & engagement gaps','Rapid onboarding for technical roles','Continuous learning & reskilling','Performance management at scale','Workforce analytics & headcount planning','Integration with legacy HRIS systems'],
+  'aviation':   ['Crew scheduling & roster management','Regulatory training compliance (GCAA/EASA)','Complex shiftwork & overtime policies','High cost of attrition for trained staff','Multi-country payroll complexity','Candidate screening at volume','Safety-critical skills tracking','Succession planning for senior roles'],
+  'hospitality':['High seasonal turnover','Shift scheduling across properties','Multilingual workforce management','Engaging frontline employees','Service-standard training tracking','Slow onboarding for seasonal hires','Compliance with labour law','Limited HR data visibility'],
+  'education':  ['Academic staff contracts & tenure tracking','Complex leave & sabbatical policies','Faculty performance & appraisal cycles','Student HR data compliance','Training & CPD tracking','Talent acquisition for specialised roles','Succession planning for leadership','Limited self-service for staff'],
+};
+
+const SF_MODULES = {
+  'Decentralised employee data across rigs & sites':     {module:'Employee Central',impact:'Single source of truth for all employee data',time:'3–4 months',priority:'high',saving:35,risk:1},
+  'Complex shift scheduling & time tracking':            {module:'Time Tracking & WFM',impact:'Automated scheduling with rule-based compliance',time:'3–5 months',priority:'high',saving:40,risk:2},
+  'Regulatory compliance & safety certifications':       {module:'Learning Management (LMS)',impact:'Automated compliance training & certification alerts',time:'2–3 months',priority:'high',saving:20,risk:2},
+  'High attrition in field operations':                  {module:'Succession & Development',impact:'Identify & nurture internal talent pipelines',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Lengthy new hire onboarding for remote workers':      {module:'Onboarding',impact:'Structured digital onboarding cuts time-to-productivity',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Manual payroll for multiple countries':               {module:'Employee Central Payroll',impact:'Automated multi-country payroll with compliance engine',time:'6–9 months',priority:'high',saving:45,risk:2},
+  'Succession gaps for critical technical roles':        {module:'Succession & Development',impact:'Talent pool visibility and readiness scoring',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'No unified performance & goal framework':             {module:'Performance & Goals (PMGM)',impact:'Cascaded goals, continuous feedback & calibration',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Paper-based HR processes & approvals':                {module:'Employee Central',impact:'Digital workflows replace manual paper approvals',time:'3–4 months',priority:'high',saving:50,risk:1},
+  'Rigid pay scales with complex allowances':            {module:'Compensation Management',impact:'Flexible pay structures with automated eligibility',time:'3–4 months',priority:'high',saving:25,risk:1},
+  'Compliance with civil service regulations':           {module:'Employee Central + LMS',impact:'Policy enforcement with audit trail & training records',time:'4–5 months',priority:'high',saving:20,risk:2},
+  'Limited visibility across departments':               {module:'People Analytics',impact:'Real-time workforce dashboards & predictive insights',time:'2–3 months',priority:'med',saving:30,risk:1},
+  'Manual leave & absence management':                   {module:'Time Off',impact:'Employee self-service leave with manager approval flows',time:'2 months',priority:'high',saving:35,risk:1},
+  'Difficulty attracting digital talent':                {module:'Recruiting (RCM)',impact:'Modern candidate experience & talent brand portal',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Poor succession planning for leadership':             {module:'Succession & Development',impact:'9-box talent matrix & development plans',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Decentralised training tracking':                     {module:'Learning Management (LMS)',impact:'Centralised learning catalogue & completion tracking',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Regulatory-driven skills tracking & compliance':      {module:'Learning Management (LMS)',impact:'Automated curriculum assignment & expiry alerts',time:'2–3 months',priority:'high',saving:25,risk:2},
+  'Complex compensation & incentive plans':              {module:'Compensation Management',impact:'Automated bonus & merit cycle with eligibility rules',time:'3–4 months',priority:'high',saving:30,risk:1},
+  'Risk of losing top talent to competitors':            {module:'Succession & Development',impact:'Retention risk indicators & internal mobility tools',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Fragmented onboarding across entities':               {module:'Onboarding',impact:'Consistent onboarding journey across all entities',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Manual performance calibration cycles':               {module:'Performance & Goals (PMGM)',impact:'Digital calibration sessions with rating distribution',time:'2–3 months',priority:'med',saving:25,risk:1},
+  'Inconsistent leave policies across regions':          {module:'Time Off',impact:'Region-specific leave rules in a single platform',time:'2 months',priority:'high',saving:30,risk:1},
+  'Lack of real-time workforce analytics':               {module:'People Analytics',impact:'Story-based analytics with predictive capabilities',time:'2–3 months',priority:'med',saving:30,risk:1},
+  'Siloed HR data across business units':                {module:'Employee Central',impact:'Unified org structure with cross-BU visibility',time:'3–4 months',priority:'high',saving:40,risk:1},
+  'Credentialing & licencing management':                {module:'Learning Management (LMS)',impact:'Credential tracking with automated renewal reminders',time:'2–3 months',priority:'high',saving:25,risk:2},
+  '24/7 roster & shift management':                      {module:'Time Tracking & WFM',impact:'Pattern-based rostering with fatigue rule compliance',time:'3–5 months',priority:'high',saving:40,risk:2},
+  'High nurse/clinician turnover':                       {module:'Succession & Development',impact:'Career frameworks & internal mobility channels',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Complex overtime & on-call tracking':                 {module:'Time Tracking',impact:'Rules-based OT calculation with automatic accruals',time:'3–4 months',priority:'high',saving:35,risk:1},
+  'Onboarding large batches of new hires':               {module:'Onboarding',impact:'Scalable onboarding templates for volume hiring',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Compliance with MOH/JCI regulations':                 {module:'LMS + Employee Central',impact:'Regulatory reporting & certification dashboards',time:'3–4 months',priority:'high',saving:20,risk:2},
+  'Training & mandatory certification tracking':         {module:'Learning Management (LMS)',impact:'Automated assignment, completion & compliance reports',time:'2–3 months',priority:'high',saving:25,risk:2},
+  'Pay equity concerns across roles':                    {module:'Compensation Management',impact:'Pay equity analysis dashboards with corrective workflows',time:'3–4 months',priority:'med',saving:20,risk:1},
+  'High seasonal workforce variability':                 {module:'Recruiting + Time Tracking',impact:'Rapid onboarding pipelines & flexible scheduling',time:'3–4 months',priority:'high',saving:30,risk:1},
+  'Complex schedule management across stores':           {module:'Time Tracking & WFM',impact:'Automated shift scheduling based on demand signals',time:'3–5 months',priority:'high',saving:40,risk:1},
+  'High turnover & disengagement':                       {module:'Succession & Development',impact:'Engagement surveys integrated with development plans',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Inconsistent onboarding experience':                  {module:'Onboarding',impact:'Branded, role-specific onboarding journeys',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Compliance with local labour laws':                   {module:'Employee Central + Time Off',impact:'Localised leave rules & labour law guardrails',time:'3–4 months',priority:'high',saving:25,risk:2},
+  'No clear career path for store staff':                {module:'Succession & Development',impact:'Career paths & skill progression visibility',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Manual time & attendance reconciliation':             {module:'Time Tracking',impact:'Automated timesheets with payroll-ready exports',time:'3–4 months',priority:'high',saving:40,risk:1},
+  'Limited insight into workforce productivity':         {module:'People Analytics',impact:'Productivity KPIs and store-level HR benchmarks',time:'2–3 months',priority:'med',saving:25,risk:1},
+  'Managing sub-contractors & workers':                  {module:'Employee Central',impact:'Contractor data management with project assignment',time:'3–4 months',priority:'high',saving:30,risk:1},
+  'Site-level time & attendance tracking':               {module:'Time Tracking',impact:'Mobile clock-in/out with GPS and biometric integration',time:'3–4 months',priority:'high',saving:40,risk:1},
+  'Safety training compliance':                          {module:'Learning Management (LMS)',impact:'Mandatory safety curriculum with expiry reminders',time:'2–3 months',priority:'high',saving:25,risk:2},
+  'Mobilisation & demobilisation processes':             {module:'Onboarding',impact:'Structured check-in/check-out workflows',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Labour law compliance across regions':                {module:'Employee Central + Payroll',impact:'Local legislation embedded in HR processes',time:'4–6 months',priority:'high',saving:25,risk:2},
+  'Skills matrix for project resourcing':                {module:'People Analytics',impact:'Skill inventory mapped to project resource plans',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'High workforce turnover':                             {module:'Succession & Development',impact:'Retention risk scoring and career path tools',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Limited visibility of workforce costs':               {module:'People Analytics',impact:'Real-time cost-per-head and project labour cost reporting',time:'2–3 months',priority:'med',saving:25,risk:1},
+  'Fast-paced talent acquisition needs':                 {module:'Recruiting (RCM)',impact:'Streamlined requisition-to-offer with AI screening',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Complex bonus & commission structures':               {module:'Compensation Management',impact:'Variable pay plans with eligibility and calculation engine',time:'3–4 months',priority:'high',saving:30,risk:1},
+  'Employee experience & engagement gaps':               {module:'Performance & Goals (PMGM)',impact:'Continuous check-ins and engagement pulse surveys',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Rapid onboarding for technical roles':                {module:'Onboarding',impact:'Role-based tasks & system access provisioning',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Continuous learning & reskilling':                    {module:'Learning Management (LMS)',impact:'Personalised learning paths with skills gap analysis',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Performance management at scale':                     {module:'Performance & Goals (PMGM)',impact:'360 reviews, calibration & rating normalisation',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Workforce analytics & headcount planning':            {module:'People Analytics',impact:'Headcount forecasting with scenario modelling',time:'2–3 months',priority:'med',saving:25,risk:1},
+  'Integration with legacy HRIS systems':                {module:'Integration Center',impact:'Pre-built connectors & middleware-free integrations',time:'2–4 months',priority:'high',saving:30,risk:1},
+  'Crew scheduling & roster management':                 {module:'Time Tracking & WFM',impact:'Regulatory-compliant crew scheduling engine',time:'3–5 months',priority:'high',saving:40,risk:2},
+  'Regulatory training compliance (GCAA/EASA)':          {module:'Learning Management (LMS)',impact:'Authority-mapped training records & compliance proofs',time:'2–3 months',priority:'high',saving:25,risk:2},
+  'Complex shiftwork & overtime policies':               {module:'Time Tracking',impact:'Rule-engine for complex OT policies and premium pay',time:'3–4 months',priority:'high',saving:35,risk:1},
+  'High cost of attrition for trained staff':            {module:'Succession & Development',impact:'Internal talent mobility reduces external hiring costs',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Multi-country payroll complexity':                    {module:'Employee Central Payroll',impact:'Unified payroll with country-specific statutory rules',time:'6–9 months',priority:'high',saving:45,risk:2},
+  'Candidate screening at volume':                       {module:'Recruiting (RCM)',impact:'AI-powered screening and interview scheduling',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Safety-critical skills tracking':                     {module:'Learning Management (LMS)',impact:'Skill expiry tracking with auto-remediation workflows',time:'2–3 months',priority:'high',saving:25,risk:2},
+  'Succession planning for senior roles':                {module:'Succession & Development',impact:'Leadership bench strength visibility and readiness plans',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'High seasonal turnover':                              {module:'Recruiting + Onboarding',impact:'Rapid hire-to-start pipeline for seasonal peaks',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Shift scheduling across properties':                  {module:'Time Tracking & WFM',impact:'Multi-property schedule with coverage optimisation',time:'3–5 months',priority:'high',saving:40,risk:1},
+  'Multilingual workforce management':                   {module:'Employee Central',impact:'Multi-language UI and localised HR processes',time:'3–4 months',priority:'high',saving:25,risk:1},
+  'Engaging frontline employees':                        {module:'Performance & Goals (PMGM)',impact:'Mobile-first check-ins and recognition workflows',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Service-standard training tracking':                  {module:'Learning Management (LMS)',impact:'Role-specific e-learning with completion dashboards',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Slow onboarding for seasonal hires':                  {module:'Onboarding',impact:'Rapid digital onboarding templates for bulk hires',time:'2–3 months',priority:'high',saving:30,risk:1},
+  'Limited HR data visibility':                          {module:'People Analytics',impact:'Embedded analytics with live workforce KPIs',time:'2–3 months',priority:'med',saving:25,risk:1},
+  'Academic staff contracts & tenure tracking':          {module:'Employee Central',impact:'Contract lifecycle management with tenure milestones',time:'3–4 months',priority:'high',saving:30,risk:1},
+  'Complex leave & sabbatical policies':                 {module:'Time Off',impact:'Custom leave types including sabbaticals & study leave',time:'2 months',priority:'high',saving:30,risk:1},
+  'Faculty performance & appraisal cycles':              {module:'Performance & Goals (PMGM)',impact:'Academic KPI frameworks aligned to institution goals',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Student HR data compliance':                          {module:'Employee Central',impact:'Compliant data model with GDPR/data privacy controls',time:'3–4 months',priority:'high',saving:20,risk:2},
+  'Training & CPD tracking':                             {module:'Learning Management (LMS)',impact:'CPD portfolio tracking with self-service enrolment',time:'2–3 months',priority:'med',saving:20,risk:1},
+  'Talent acquisition for specialised roles':            {module:'Recruiting (RCM)',impact:'Specialised job boards and candidate experience tools',time:'2–3 months',priority:'high',saving:25,risk:1},
+  'Succession planning for leadership':                  {module:'Succession & Development',impact:'Leadership bench strength and readiness plans',time:'2–3 months',priority:'med',saving:15,risk:1},
+  'Limited self-service for staff':                      {module:'Employee Central',impact:'Full ESS/MSS with mobile app access',time:'2–3 months',priority:'high',saving:40,risk:1},
+};
+
+let selectedIndustry = null;
+let selectedPains = new Set();
+
+function renderIndustries(){
+  const g = document.getElementById('industryGrid');
+  g.innerHTML = INDUSTRIES.map(i=>`
+    <div class="industry-card" id="ic-${i.id}" onclick="selectIndustry('${i.id}')">
+      <span class="ic-icon">${i.icon}</span>
+      <div class="ic-name">${i.name}</div>
+      <div class="ic-sub">${i.sub}</div>
+    </div>`).join('');
+}
+
+function selectIndustry(id){
+  selectedIndustry = id;
+  document.querySelectorAll('.industry-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('ic-'+id).classList.add('selected');
+  document.getElementById('btn-next1').disabled = false;
+  document.getElementById('ind-count').innerHTML = '<strong>1</strong> industry selected';
+}
+
+function renderPainPoints(){
+  const pains = PAIN_POINTS[selectedIndustry] || [];
+  const ind = INDUSTRIES.find(i=>i.id===selectedIndustry);
+  document.getElementById('pain-title').textContent = `What keeps your ${ind ? ind.name : ''} HR team up at night?`;
+  const g = document.getElementById('painGrid');
+  g.innerHTML = pains.map((p,i)=>`
+    <div class="pain-card" id="pc-${i}" onclick="togglePain('${p.replace(/'/g,"\\'")}',${i})">
+      <div class="pc-check" id="pcc-${i}">✓</div>
+      <div>
+        <div class="pc-text">${p}</div>
+      </div>
+    </div>`).join('');
+  selectedPains.clear();
+  updatePainCount();
+}
+
+function togglePain(pain, idx){
+  if(selectedPains.has(pain)) selectedPains.delete(pain);
+  else selectedPains.add(pain);
+  document.getElementById('pc-'+idx).classList.toggle('selected', selectedPains.has(pain));
+  document.getElementById('pcc-'+idx).style.color = selectedPains.has(pain) ? 'white' : 'transparent';
+  updatePainCount();
+}
+
+function updatePainCount(){
+  const n = selectedPains.size;
+  document.getElementById('pain-count').textContent = n;
+  document.getElementById('btn-next2').disabled = n === 0;
+}
+
+function buildRoadmap(){
+  const pains = Array.from(selectedPains);
+  const moduleMap = {};
+  pains.forEach(p=>{
+    const m = SF_MODULES[p];
+    if(m){
+      const key = m.module;
+      if(!moduleMap[key]) moduleMap[key] = {module:m.module,impact:m.impact,time:m.time,priority:m.priority,saving:0,risk:0,pains:[]};
+      moduleMap[key].saving = Math.max(moduleMap[key].saving, m.saving);
+      moduleMap[key].risk += m.risk;
+      moduleMap[key].pains.push({pain:p,impact:m.impact,time:m.time,module:m.module});
+    }
+  });
+
+  const modules = Object.values(moduleMap).sort((a,b)=>{ const po={high:0,med:1,low:2}; return po[a.priority]-po[b.priority]; });
+  const totalSaving = Math.min(75, Math.round(modules.reduce((s,m)=>s+m.saving,0)/Math.max(modules.length,1)));
+  const riskAreas = modules.reduce((s,m)=>s+m.risk,0);
+
+  document.getElementById('kpi-modules').textContent = modules.length;
+  document.getElementById('kpi-savings').textContent = totalSaving+'%';
+  document.getElementById('kpi-risks').textContent = riskAreas;
+
+  const ind = INDUSTRIES.find(i=>i.id===selectedIndustry);
+  document.getElementById('roadmap-sub').textContent = `${pains.length} pain point${pains.length>1?'s':''} selected · ${modules.length} module${modules.length!==1?'s':''} recommended for ${ind?ind.name:'your organisation'}`;
+
+  const dur = modules.length <= 2 ? '2–3 months' : modules.length <= 5 ? '4–6 months' : '6–9 months';
+  document.getElementById('deploy-dur').textContent = dur;
+
+  const ml = document.getElementById('moduleList');
+  ml.innerHTML = modules.map((m,i)=>`
+    <div class="module-row">
+      <div class="mod-rank">${i+1}</div>
+      <div>
+        <div class="mod-name">${m.module}</div>
+        <div class="mod-desc">${m.impact}</div>
+      </div>
+      <div class="mod-tag tag-${m.priority}">${m.priority==='high'?'Priority':'Optional'}</div>
+      <div class="mod-time">${m.time}</div>
+    </div>`).join('');
+
+  const allMappings = [];
+  pains.forEach(p=>{ const m = SF_MODULES[p]; if(m) allMappings.push({pain:p,...m}); });
+  const tb = document.getElementById('mapTable');
+  tb.innerHTML = allMappings.map(r=>`
+    <tr>
+      <td style="color:var(--ec-text);font-size:13px;">${r.pain}</td>
+      <td><span style="background:var(--ec-blue-light);color:var(--ec-blue);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;">${r.module}</span></td>
+      <td style="font-size:12px;color:var(--ec-muted);">${r.impact}</td>
+      <td style="font-size:12px;color:var(--ec-muted);white-space:nowrap;">${r.time}</td>
+    </tr>`).join('');
+
+  goStep(3);
+}
+
+function goStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('step'+i).classList.toggle('active', i===n);
+    const hs = document.getElementById('hs'+i);
+    if(hs) hs.classList.toggle('active', i<=n);
+  });
+  if(n===2) renderPainPoints();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submitEngageForm(){
+  const name = document.getElementById('ef-name').value.trim();
+  const email = document.getElementById('ef-email').value.trim();
+  if(!name || !email){ alert('Please fill in your name and email.'); return; }
+  document.getElementById('engage-form-panel').style.display='none';
+  const sp = document.getElementById('engage-success-panel');
+  sp.style.display='flex';
+}
+function openModal(){ document.getElementById('engageModal').classList.add('open'); }
+function closeModal(){
+  document.getElementById('engageModal').classList.remove('open');
+  document.getElementById('modal-form-view').style.display='block';
+  document.getElementById('modal-success-view').style.display='none';
+}
+function submitForm(){
+  document.getElementById('modal-form-view').style.display='none';
+  document.getElementById('modal-success-view').style.display='block';
+}
+
+renderIndustries();
+</script>
+</body>
+</html>
