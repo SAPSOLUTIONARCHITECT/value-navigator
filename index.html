@@ -636,6 +636,7 @@ footer a:hover{color:var(--gray-800);}
 </footer>
 
 <script>
+
 // ---- DATA ----
 const INDUSTRIES=[
   {id:'oil-gas',name:'Oil & Gas',sub:'Energy · Upstream · Downstream',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 2v6m0 0c-2.5 0-5 1.5-5 4v10h10V12c0-2.5-2.5-4-5-4z"/><path d="M7 22v-4h10v4"/></svg>'},
@@ -905,292 +906,141 @@ function submitForm(){
 }
 
 
+
 // ---- TEAM DATA ----
 const MODULE_COLORS={
-  'EC':       {bg:'#e8f2ff',color:'#0055b3'},
-  'RCM':      {bg:'#f0fdf4',color:'#166534'},
-  'ONB':      {bg:'#fef9c3',color:'#854d0e'},
-  'PMGM':     {bg:'#fdf2f8',color:'#86198f'},
-  'LMS':      {bg:'#fff7ed',color:'#9a3412'},
-  'Time':     {bg:'#f0fdfa',color:'#065f46'},
-  'Payroll':  {bg:'#fef2f2',color:'#991b1b'},
-  'Comp':     {bg:'#f5f3ff',color:'#5b21b6'},
+  'EC':        {bg:'#e8f2ff',color:'#0055b3'},
+  'RCM':       {bg:'#f0fdf4',color:'#166534'},
+  'ONB':       {bg:'#fef9c3',color:'#854d0e'},
+  'PMGM':      {bg:'#fdf2f8',color:'#86198f'},
+  'LMS':       {bg:'#fff7ed',color:'#9a3412'},
+  'Time':      {bg:'#f0fdfa',color:'#065f46'},
+  'Payroll':   {bg:'#fef2f2',color:'#991b1b'},
+  'Comp':      {bg:'#f5f3ff',color:'#5b21b6'},
   'Succession':{bg:'#eff6ff',color:'#1d4ed8'},
-  'Analytics':{bg:'#ecfdf5',color:'#065f46'},
-  'Smart REC':{bg:'#fdf4ff',color:'#7e22ce'},
-  'Engage':   {bg:'#f0f9ff',color:'#0369a1'},
+  'Analytics': {bg:'#ecfdf5',color:'#065f46'},
+  'Smart REC': {bg:'#fdf4ff',color:'#7e22ce'},
+  'Engage':    {bg:'#f0f9ff',color:'#0369a1'},
 };
 
-const AVATARS=[
-  {initials:'MA',grad:'linear-gradient(135deg,#1a3a5c,#0071e3)'},
-  {initials:'HH',grad:'linear-gradient(135deg,#1a4a2e,#16a34a)'},
-  {initials:'MV',grad:'linear-gradient(135deg,#3b0764,#9333ea)'},
-  {initials:'SJ',grad:'linear-gradient(135deg,#7c1d1d,#ef4444)'},
-  {initials:'FA',grad:'linear-gradient(135deg,#1c1917,#78716c)'},
-  {initials:'VN',grad:'linear-gradient(135deg,#0c4a6e,#0ea5e9)'},
-  {initials:'BK',grad:'linear-gradient(135deg,#064e3b,#10b981)'},
-  {initials:'SY',grad:'linear-gradient(135deg,#4c0519,#e11d48)'},
+const TEAM=[
+  {name:'Mahima',initials:'MA',grad:'linear-gradient(135deg,#1a3a5c,#0071e3)',
+   role:'SF Consultant',exp:'3 yrs',senior:false,
+   superpower:'Go-to for seamless onboarding journeys and talent pipelines. Knows RCM inside out — from requisition to offer letter.',
+   modules:['EC','RCM','ONB','PMGM','Engage'],
+   projects:['Velora','HHEO','TEC','ARG'],
+   review:{text:'Mahima configured our entire onboarding flow in record time. Clients did not even notice the complexity behind it.',client:'Velora Project'}},
+  {name:'Harshita H',initials:'HH',grad:'linear-gradient(135deg,#1a4a2e,#16a34a)',
+   role:'SF Consultant',exp:'3 yrs',senior:false,
+   superpower:'The Smart Recruiters specialist. Bridges SF RCM and third-party ATS integrations with precision and zero rework.',
+   modules:['RCM','ONB','Smart REC','EC','Engage'],
+   projects:['SLC','DRE','ARG'],
+   review:{text:'Harshita delivered the RCM integration with Smart Recruiters on time, zero defects at go-live.',client:'SLC Project'}},
+  {name:'Madhur V',initials:'MV',grad:'linear-gradient(135deg,#3b0764,#9333ea)',
+   role:'SF Consultant',exp:'2 yrs',senior:false,
+   superpower:'Makes time management elegant. Handles complex shift rules and EC org structures that would make most consultants sweat.',
+   modules:['EC','Time','Engage'],
+   projects:['SLC','ARG'],
+   review:{text:'Madhur understood our time tracking complexity from day one. The configuration was spot-on first time.',client:'SLC Project'}},
+  {name:'Sangeetha J',initials:'SJ',grad:'linear-gradient(135deg,#7c1d1d,#ef4444)',
+   role:'SF Consultant',exp:'3 yrs',senior:false,
+   superpower:'The LMS architect of the team. Builds learning curricula and compliance programmes that actually get adopted.',
+   modules:['LMS','EC','Engage'],
+   projects:['Velora','Bareeq'],
+   review:{text:'Sangeetha built our entire mandatory training framework in LMS. Adoption rates exceeded every target.',client:'Bareeq Project'}},
+  {name:'Faabi Ayisha',initials:'FA',grad:'linear-gradient(135deg,#1c1917,#78716c)',
+   role:'SF Consultant',exp:'2 yrs',senior:false,
+   superpower:'Employee Central champion. Turns complex org hierarchies and position management into clean, auditable structures.',
+   modules:['EC','Engage'],
+   projects:['SLC','Bloom'],
+   review:{text:'Faabi had our org structure migrated and validated faster than expected. No data issues post go-live.',client:'Bloom Project'}},
+  {name:'Vibhanshu N',initials:'VN',grad:'linear-gradient(135deg,#0c4a6e,#0ea5e9)',
+   role:'Senior SF Consultant',exp:'8 yrs',senior:true,
+   superpower:'The performance and succession guru. Builds goal frameworks that align entire organisations — and calibration sessions that actually work.',
+   modules:['PMGM','Succession','RCM','ONB','EC','Comp','Engage'],
+   projects:['Velora','SLC','HHEO','ECSSR','TEC'],
+   review:{text:'Vibhanshu redesigned our entire performance cycle. The calibration setup alone saved our HR team weeks every quarter.',client:'ECSSR Project'}},
+  {name:'Bharath K',initials:'BK',grad:'linear-gradient(135deg,#064e3b,#10b981)',
+   role:'Senior SF Consultant',exp:'8 yrs',senior:true,
+   superpower:'RCM and PMGM powerhouse. Handles end-to-end talent acquisition and performance cycles across complex multi-entity setups.',
+   modules:['RCM','ONB','PMGM','EC','Engage'],
+   projects:['Velora','TEC'],
+   review:{text:'Bharath delivered the full RCM and PMGM scope across three entities simultaneously. Exceptional delivery.',client:'TEC Project'}},
+  {name:'Sarada Y',initials:'SY',grad:'linear-gradient(135deg,#4c0519,#e11d48)',
+   role:'Payroll Lead',exp:'15 yrs',senior:true,
+   superpower:'The payroll oracle. 15 years means she has seen every edge case. GCC statutory, end-of-service, multi-entity — nothing fazes her.',
+   modules:['Payroll','EC','Engage'],
+   projects:['SLC'],
+   review:{text:'Sarada ensured our payroll go-live was flawless. Her knowledge of UAE statutory requirements is unmatched.',client:'SLC Project'}},
 ];
 
-const TEAM=[
-  {
-    name:'Mahima',initials:'MA',grad:AVATARS[0].grad,
-    role:'SF Consultant',exp:'3 yrs',
-    superpower:'Go-to for seamless onboarding journeys and talent pipelines. Knows RCM inside out — from requisition to offer letter.',
-    modules:['EC','RCM','ONB','PMGM','Engage'],
-    projects:['Velora','HHEO','TEC','ARG'],
-    review:{text:'Mahima configured our entire onboarding flow in record time. Clients did not even notice the complexity behind it.',client:'Velora Project'},
-  },
-  {
-    name:'Harshita H',initials:'HH',grad:AVATARS[1].grad,
-    role:'SF Consultant',exp:'3 yrs',
-    superpower:'The Smart Recruiters specialist in the team. Bridges the gap between SF RCM and third-party ATS with precision.',
-    modules:['RCM','ONB','Smart REC','EC','Engage'],
-    projects:['SLC','DRE','ARG'],
-    review:{text:'Harshita delivered the RCM integration with Smart Recruiters on time, zero defects at go-live.',client:'SLC Project'},
-  },
-  {
-    name:'Madhur V',initials:'MV',grad:AVATARS[2].grad,
-    role:'SF Consultant',exp:'2 yrs',
-    superpower:'Makes time management elegant. Handles complex shift rules and EC org structures that would make most consultants sweat.',
-    modules:['EC','Time','Engage'],
-    projects:['SLC','ARG'],
-    review:{text:'Madhur understood our time tracking complexity from day one. The configuration was spot-on first time.',client:'SLC Project'},
-  },
-  {
-    name:'Sangeetha J',initials:'SJ',grad:AVATARS[3].grad,
-    role:'SF Consultant',exp:'3 yrs',
-    superpower:'The LMS architect of the team. Builds learning curricula and compliance programmes that actually get adopted.',
-    modules:['LMS','EC','Engage'],
-    projects:['Velora','Bareeq'],
-    review:{text:'Sangeetha built our entire mandatory training framework in LMS. Adoption rates exceeded every target.',client:'Bareeq Project'},
-  },
-  {
-    name:'Faabi Ayisha',initials:'FA',grad:AVATARS[4].grad,
-    role:'SF Consultant',exp:'2 yrs',
-    superpower:'Employee Central champion. Turns complex org hierarchies and position management into clean, auditable structures.',
-    modules:['EC','Engage'],
-    projects:['SLC','Bloom'],
-    review:{text:'Faabi had our org structure migrated and validated faster than expected. No data issues post go-live.',client:'Bloom Project'},
-  },
-  {
-    name:'Vibhanshu N',initials:'VN',grad:AVATARS[5].grad,
-    role:'Senior SF Consultant',exp:'8 yrs',
-    superpower:'The performance and succession guru. Builds goal frameworks that align entire organisations — and calibration sessions that actually work.',
-    modules:['PMGM','Succession','RCM','ONB','EC','Comp','Engage'],
-    projects:['Velora','SLC','HHEO','ECSSR','TEC'],
-    review:{text:'Vibhanshu redesigned our entire performance cycle. The calibration setup alone saved our HR team weeks every quarter.',client:'ECSSR Project'},
-  },
-  {
-    name:'Bharath K',initials:'BK',grad:AVATARS[6].grad,
-    role:'Senior SF Consultant',exp:'8 yrs',
-    superpower:'RCM and PMGM powerhouse. Handles end-to-end talent acquisition and performance cycles across complex multi-entity setups.',
-    modules:['RCM','ONB','PMGM','EC','Engage'],
-    projects:['Velora','TEC'],
-    review:{text:'Bharath delivered the full RCM and PMGM scope across three entities simultaneously. Exceptional delivery.',client:'TEC Project'},
-  },
-  {
-    name:'Sarada Y',initials:'SY',grad:AVATARS[7].grad,
-    role:'Payroll Lead',exp:'15 yrs',
-    superpower:'The payroll oracle. 15 years means she has seen every edge case. GCC statutory rules, end-of-service, multi-entity — nothing fazes her.',
-    modules:['Payroll','EC','Engage'],
-    projects:['SLC'],
-    review:{text:'Sarada ensured our payroll go-live was flawless. Her knowledge of UAE statutory requirements is unmatched.',client:'SLC Project'},
-  },
-];
+function makeBadge(mod){
+  var c=MODULE_COLORS[mod]||{bg:'#e8e8ed',color:'#6e6e73'};
+  return '<span class="bb" style="background:'+c.bg+';color:'+c.color+';">'+mod+'</span>';
+}
 
 function renderTeam(){
   // Shubham badges
-  const shModules=['EC','RCM','ONB','PMGM','LMS','Time','Payroll','Comp','Succession','Analytics','Engage'];
-  document.getElementById('shubham-badges').innerHTML=shModules.map(m=>{
-    const c=MODULE_COLORS[m]||{bg:'#e8e8ed',color:'#6e6e73'};
-    return \`<span class="bb" style="background:\${c.bg};color:\${c.color};">\${m}</span>\`;
-  }).join('');
+  var shMods=['EC','RCM','ONB','PMGM','LMS','Time','Payroll','Comp','Succession','Analytics','Engage'];
+  var shEl=document.getElementById('shubham-badges');
+  if(shEl) shEl.innerHTML=shMods.map(makeBadge).join('');
 
   // Team grid
-  const g=document.getElementById('teamGrid');
-  g.innerHTML=TEAM.map((t,i)=>{
-    const badges=t.modules.map(m=>{
-      const c=MODULE_COLORS[m]||{bg:'#e8e8ed',color:'#6e6e73'};
-      return \`<span class="bb" style="background:\${c.bg};color:\${c.color};">\${m}</span>\`;
-    }).join('');
-    const projs=t.projects.map(p=>\`<span class="proj-tag">\${p}</span>\`).join('');
-    const overlayMods=t.modules.map(m=>\`<span class="tc-overlay-mod">\${m}</span>\`).join('');
-    const isSenior=parseInt(t.exp)>=8;
-    return \`
-    <div class="tc">
-      <div class="tc-top">
-        <div class="tc-avatar" style="background:\${t.grad};">
-          \${t.initials}
-          \${isSenior?\`<div class="tc-star"><svg viewBox="0 0 24 24" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="white"/></svg></div>\`:''}
-        </div>
-        <div class="tc-name">\${t.name}</div>
-        <div class="tc-role">\${t.role}</div>
-        <div class="tc-exp">\${t.exp} experience</div>
-      </div>
-      <div class="tc-badges">\${badges}</div>
-      <div class="tc-divider"></div>
-      <div class="tc-projects">\${projs}</div>
-      <div class="tc-overlay">
-        <p class="tc-overlay-quote">"\${t.superpower}"</p>
-        <div class="tc-overlay-title">Black belt modules</div>
-        <div class="tc-overlay-mods">\${overlayMods}</div>
-        \${t.review?\`<div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
-          <div style="font-size:12px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:6px;">Client voice</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5;font-style:italic;">"\${t.review.text}"</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:4px;">— \${t.review.client}</div>
-        </div>\`:''}
-      </div>
-    </div>\`;
-  }).join('');
+  var g=document.getElementById('teamGrid');
+  if(!g) return;
+  var html='';
+  for(var i=0;i<TEAM.length;i++){
+    var t=TEAM[i];
+    var badges=t.modules.map(makeBadge).join('');
+    var projs=t.projects.map(function(p){return '<span class="proj-tag">'+p+'</span>';}).join('');
+    var overlayMods=t.modules.map(function(m){return '<span class="tc-overlay-mod">'+m+'</span>';}).join('');
+    var starHtml=t.senior?'<div class="tc-star"><svg viewBox="0 0 24 24" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="white"/></svg></div>':'';
+    var reviewHtml='';
+    if(t.review){
+      reviewHtml='<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);">'
+        +'<div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:5px;">Client voice</div>'
+        +'<div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5;font-style:italic;">"'+t.review.text+'"</div>'
+        +'<div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:4px;">— '+t.review.client+'</div>'
+        +'</div>';
+    }
+    html+='<div class="tc">'
+      +'<div class="tc-top">'
+      +'<div class="tc-avatar" style="background:'+t.grad+';">'+t.initials+starHtml+'</div>'
+      +'<div class="tc-name">'+t.name+'</div>'
+      +'<div class="tc-role">'+t.role+'</div>'
+      +'<div class="tc-exp">'+t.exp+' experience</div>'
+      +'</div>'
+      +'<div class="tc-badges">'+badges+'</div>'
+      +'<div class="tc-divider"></div>'
+      +'<div class="tc-projects">'+projs+'</div>'
+      +'<div class="tc-overlay">'
+      +'<p class="tc-overlay-quote">"'+t.superpower+'"</p>'
+      +'<div class="tc-overlay-title">Black belt modules</div>'
+      +'<div class="tc-overlay-mods">'+overlayMods+'</div>'
+      +reviewHtml
+      +'</div>'
+      +'</div>';
+  }
+  g.innerHTML=html;
 
   // Legend
-  const lb=document.getElementById('legendBadges');
-  lb.innerHTML=Object.entries(MODULE_COLORS).map(([m,c])=>
-    \`<span class="bb" style="background:\${c.bg};color:\${c.color};font-size:12px;padding:5px 14px;">\${m}</span>\`
-  ).join('');
+  var lb=document.getElementById('legendBadges');
+  if(lb){
+    var leg='';
+    var keys=Object.keys(MODULE_COLORS);
+    for(var k=0;k<keys.length;k++){
+      var m=keys[k];
+      var c=MODULE_COLORS[m];
+      leg+='<span class="bb" style="background:'+c.bg+';color:'+c.color+';font-size:12px;padding:5px 14px;">'+m+'</span>';
+    }
+    lb.innerHTML=leg;
+  }
 }
 
 // ---- INIT ----
 renderIndustries();
 renderModTabs();
 renderTeam();
-
-// ---- TEAM DATA ----
-const MODULE_META = {
-  'EC':    {label:'Employee Central',color:'#0071e3'},
-  'RCM':   {label:'Recruiting',color:'#5856d6'},
-  'ONB':   {label:'Onboarding',color:'#34c759'},
-  'PMGM':  {label:'Performance & Goals',color:'#ff9500'},
-  'COMP':  {label:'Compensation',color:'#ff2d55'},
-  'LMS':   {label:'Learning',color:'#af52de'},
-  'SUCC':  {label:'Succession & Dev.',color:'#00c7be'},
-  'TIME':  {label:'Time Tracking',color:'#30b0c7'},
-  'TOFF':  {label:'Time Off',color:'#32ade6'},
-  'PA':    {label:'People Analytics',color:'#64d2ff'},
-  'PAY':   {label:'EC Payroll',color:'#ff6b35'},
-  'RMK':   {label:'Recruiting Marketing',color:'#bf5af2'},
-  'SR':    {label:'Smart Recruiters',color:'#6ac4dc'},
-  'INT':   {label:'Integration Center',color:'#8e8e93'},
-  'ENG':   {label:'Engage',color:'#1c1c1e'},
-};
-
-const TEAM = [
-  {
-    initials:'MS', name:'Mahima', title:'Senior SF Consultant',
-    exp:'3 years', region:'UAE', color:'#5856d6',
-    modules:['EC','RCM','ONB','PMGM','ENG'],
-    superpower:'End-to-end talent pipeline wizard — from job posting to first performance review.',
-    sectors:['Banking','Retail','Government']
-  },
-  {
-    initials:'HS', name:'Harshita', title:'SF Recruitment Specialist',
-    exp:'3 years', region:'UAE', color:'#ff2d55',
-    modules:['RCM','ONB','SR','EC','ENG'],
-    superpower:'Makes Smart Recruiters sing with SuccessFactors in perfect harmony.',
-    sectors:['Telecom','Technology','FMCG']
-  },
-  {
-    initials:'MA', name:'Madhur', title:'SF Consultant',
-    exp:'2 years', region:'UAE', color:'#30b0c7',
-    modules:['EC','TIME','ENG'],
-    superpower:'Time Tracking configurations that handle every shift pattern you can throw at him.',
-    sectors:['Hospitality','Construction','Aviation']
-  },
-  {
-    initials:'SA', name:'Sagethha', title:'Learning & HR Consultant',
-    exp:'2 years', region:'UAE', color:'#af52de',
-    modules:['LMS','EC','ENG'],
-    superpower:'Builds learning journeys that actually get completed — not just assigned.',
-    sectors:['Healthcare','Education','Government']
-  },
-  {
-    initials:'FA', name:'Faabi', title:'SF Consultant',
-    exp:'2 years', region:'UAE', color:'#34c759',
-    modules:['EC','ENG'],
-    superpower:'Employee Central purist — org structures and data models done right first time.',
-    sectors:['Banking','Real Estate','Retail']
-  },
-  {
-    initials:'VB', name:'Vibhanshu', title:'Talent Management Specialist',
-    exp:'4 years', region:'UAE · India', color:'#ff9500',
-    modules:['PMGM','SUCC','RCM','ONB','EC','COMP','ENG'],
-    superpower:'Full talent suite in one brain — from hiring to succession to pay, seamlessly.',
-    sectors:['Oil & Gas','Banking','Aviation']
-  },
-  {
-    initials:'BH', name:'Bharath', title:'Senior SF Consultant',
-    exp:'8 years', region:'UAE · APAC', color:'#bf5af2',
-    modules:['RCM','RMK','ONB','PMGM','ENG'],
-    superpower:'Candidate experience guru — turns clunky hiring flows into brand-building journeys.',
-    sectors:['Government','Healthcare','Telecom']
-  },
-  {
-    initials:'SD', name:'Sarada', title:'Payroll Lead',
-    exp:'15 years', region:'UAE · APAC · Europe', color:'#ff6b35',
-    modules:['PAY','EC','TIME','TOFF','ENG'],
-    superpower:'15 years of payroll means she has seen every edge case. Twice. In three countries.',
-    sectors:['Oil & Gas','Government','Aviation','Banking']
-  },
-];
-
-function makeBadge(code, large) {
-  const m = MODULE_META[code];
-  if (!m) return '';
-  const sz = large ? 'font-size:12px;padding:6px 14px;' : 'font-size:11px;padding:4px 10px;';
-  return `<span style="${sz}font-weight:600;border-radius:20px;background:${m.color}18;color:${m.color};border:1px solid ${m.color}30;white-space:nowrap;">${code}</span>`;
-}
-
-function renderShubhamBadges() {
-  const shubhamMods = ['EC','RCM','ONB','PMGM','COMP','LMS','SUCC','TIME','TOFF','PA','INT','ENG'];
-  document.getElementById('shubham-badges').innerHTML = shubhamMods.map(c => makeBadge(c, true)).join('');
-}
-
-function renderTeamGrid() {
-  const g = document.getElementById('teamGrid');
-  g.innerHTML = TEAM.map(p => `
-    <div style="background:var(--white);border-radius:18px;padding:28px 22px;border:1.5px solid var(--gray-100);transition:all 0.2s;cursor:default;" onmouseenter="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)';this.style.borderColor='var(--gray-200)'" onmouseleave="this.style.boxShadow='none';this.style.borderColor='var(--gray-100)'">
-      <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,${p.color}33,${p.color}99);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:${p.color};margin-bottom:16px;letter-spacing:-0.01em;">${p.initials}</div>
-      <div style="font-size:16px;font-weight:600;color:var(--black);margin-bottom:2px;">${p.name}</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-bottom:4px;">${p.title}</div>
-      <div style="font-size:11px;color:var(--gray-400);margin-bottom:16px;">${p.exp} &nbsp;·&nbsp; ${p.region}</div>
-      <p style="font-size:12px;color:var(--gray-600);line-height:1.5;margin-bottom:16px;font-style:italic;">"${p.superpower}"</p>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;">${p.modules.map(c=>makeBadge(c,false)).join('')}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;">${p.sectors.map(s=>`<span style="font-size:10px;color:var(--gray-400);background:var(--gray-50);padding:3px 8px;border-radius:20px;">${s}</span>`).join('')}</div>
-    </div>`).join('');
-}
-
-function renderLegend() {
-  const shown = new Set();
-  TEAM.forEach(p => p.modules.forEach(m => shown.add(m)));
-  ['EC','RCM','ONB','PMGM','COMP','LMS','SUCC','TIME','TOFF','PA','PAY','RMK','SR','INT','ENG'].forEach(m => shown.add(m));
-  document.getElementById('legendBadges').innerHTML = [...shown].map(code => {
-    const meta = MODULE_META[code];
-    if (!meta) return '';
-    return `<div style="display:flex;align-items:center;gap:6px;background:var(--gray-50);border-radius:20px;padding:6px 14px;border:1px solid var(--gray-100);">
-      <span style="width:8px;height:8px;border-radius:50%;background:${meta.color};flex-shrink:0;"></span>
-      <span style="font-size:12px;font-weight:600;color:var(--gray-800);">${code}</span>
-      <span style="font-size:12px;color:var(--gray-400);">${meta.label}</span>
-    </div>`;
-  }).join('');
-}
-
-// ---- UPDATE showPage to handle team ----
-const _origShowPage = showPage;
-showPage = function(p) {
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.getElementById('nl-nav').classList.toggle('active',p==='navigator');
-  document.getElementById('nl-eng').classList.toggle('active',p==='engage');
-  const nlTeam = document.getElementById('nl-team');
-  if(nlTeam) nlTeam.classList.toggle('active',p==='team');
-  window.scrollTo({top:0,behavior:'instant'});
-};
-
-// ---- INIT TEAM ----
-renderShubhamBadges();
-renderTeamGrid();
-renderLegend();
 
 </script>
 </body>
